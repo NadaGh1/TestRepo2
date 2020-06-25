@@ -9,8 +9,14 @@ const Ninja = require('../models/ninja');
 
 //route /ninjas
 //get a list of ninjas from the db
-router.get('/ninjas', function(req,res,next){
-  res.send({Type: 'GET'});
+router.get('/ninjas', async function(req,res,next){
+  try {
+    const ninjas = await Ninja.find();
+    return res.status(200).json({ ninjas, error: null });
+
+  } catch (error) {
+    return res.status(500).json({ ninjas: null, error });
+  }
 });
 
 //add a ninja to db
