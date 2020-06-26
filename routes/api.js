@@ -1,6 +1,6 @@
 //here we will create all routes for our api
 //we need express
-const express = require('express');
+const express = require('express'); // es5
 
 //router
 //we need express router
@@ -16,6 +16,17 @@ router.get('/ninjas', async function(req,res,next){
 
   } catch (error) {
     return res.status(500).json({ ninjas: null, error });
+  }
+});
+
+router.get('/ninjas/:id', async function(req,res){
+  const id = req.params.id
+  try {
+    const ninja = await Ninja.findOne({ _id: id});
+    return res.status(200).json({ ninja, error: null });
+
+  } catch (error) {
+    return res.status(500).json({ ninja: null, error });
   }
 });
 
